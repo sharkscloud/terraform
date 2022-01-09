@@ -55,3 +55,5 @@ resource "aws_key_pair" "web" {
     public_key = file("scripts/web.pub")
   
 }
+
+#ssh-keygen -f web

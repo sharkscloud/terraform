@@ -1,4 +1,4 @@
-def awsCredentials = [[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'sharkscreds']]
+//def awsCredentials = [[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'sharkscreds']]
 
 pipeline {
     agent any 
@@ -7,6 +7,12 @@ pipeline {
         }
 
     stages{
+         stage('test AWS credentials') {
+            steps {
+                withAWS(credentials: 'sharkscreds', region: 'us-east-2') {
+                    }
+                }
+            }
         stage("Create S3 bucket"){
             steps{
                 script{

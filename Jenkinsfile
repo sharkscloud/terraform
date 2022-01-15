@@ -13,26 +13,21 @@ pipeline {
                     }
                 }
             }
-        stage("Create S3 bucket"){
-            steps{
-                script{
-                    createS3Bucket('sharks-test-terraform12345')
+            stage('Create S3 bucket with ansible'){
+                steps{
+                    sh "ansible-playbook s3backend.yml"
+                }
+            }
+            stage('Terraform init'){
+                steps{
+                    sh "terraform init -backend-config=access_key=AKIAXAORCYL6KVBPTKH6 -backend-config=secret_key=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"
                 }
             }
         }
-        stage('Terraform init'){
-            steps{
-                sh "terraform init -backend-config=access_key=AKIAXAORCYL6KVBPTKH6 -backend-config=secret_key=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"
-            }
-        }
     }
-}
 
 def getTerraformPath(){
     def tfHome = tool name: 'terraform1.2', type: 'terraform'
     return tfHome
 }
 
-def createS3Bucket(bucketName){
-    sh returnStatus: true, script: 'aws s3 mb ${bucketName} --region=us-east2'
-}

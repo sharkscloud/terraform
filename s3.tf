@@ -15,12 +15,12 @@ resource "aws_s3_bucket" "sharks_bucket" {
 }
 
 resource "aws_s3_bucket" "alb_access_logs" {
-  bucket = "sharks-alb-access-logs-bucket"
+  bucket = "sharks-alb-access-logs-bucket12345"
   policy = data.template_file.sharks.rendered
   acl    = "private"
 
   tags = {
-    Name        = "sharks-alb-access-logs-bucket"
+    Name        = "sharks-alb-access-logs-bucket12345"
     Environment = terraform.workspace
   }
 }
@@ -28,7 +28,7 @@ resource "aws_s3_bucket" "alb_access_logs" {
 data "template_file" "sharks" {
     template = file("scripts/iam/elb-access-logging.json")
     vars = {
-        access_logs_bucket = "sharks-alb-access-logs-bucket"
+        access_logs_bucket = "sharks-alb-access-logs-bucket12345"
         policy_account_id = local.current_account
     }
 }

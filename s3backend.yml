@@ -12,5 +12,6 @@
         
   - name: Create S3 bucket
     s3_bucket:
-      name: sharks-terra-backend12345
+      name: sharks-terra-backend-file
       state: present
+      region: us-east-2

@@ -6,6 +6,8 @@
       name:
         - boto3
         - botocore
+      executable: pip3
+        
   - name: Create S3 bucket
     s3_bucket:
       name: sharks-terra-backend12345
